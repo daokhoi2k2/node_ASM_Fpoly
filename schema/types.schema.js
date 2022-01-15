@@ -1,15 +1,12 @@
 const mongoose = require("mongoose");
 
 const typeSchema = new mongoose.Schema({
-  video_url: String,
-  video_duration: Number,
-  tickrateId: Number,
-  position: String,
-  poster: String,
-  isShow: Boolean,
-  mapId: Number,
+	id: Number,
+	name: String,
 });
 
-const Type = mongoose.model("types", typeSchema, 'types');
+// Nếu không có tham số thứ 3 thì sẽ mặc định đặt tên bằng tham số thứ nhất
+// const Type = mongoose.model("typess", typeSchema, 'types');
+const Type = mongoose.model("types", typeSchema);
 
 module.exports = Type;

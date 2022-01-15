@@ -351,11 +351,8 @@
         <div class="row">
           <div class="col-12">
             <div class="card my-4">
-              <div
-                class="card-header p-0 position-relative mt-n4 mx-3 z-index-2"
-              >
-                <div
-                  class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex tables-title"
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex tables-title"
                 >
                   <h6 class="text-white text-capitalize ps-3 mb-0">Bài học</h6>
                   <div class="tables-filter ml-auto">
@@ -381,7 +378,7 @@
                   </div>
                   <a
                     class="btn bg-gradient-success mb-0 mr-3"
-                    href="/admin/add-lesson.html"
+                    href="/admin/add-lesson"
                     type="button"
                     >+</a
                   >
@@ -425,7 +422,82 @@
                         <th class="text-secondary opacity-7"></th>
                       </tr>
                     </thead>
-                    <tbody id="lesson-result"></tbody>
+                    <tbody>
+                        <% for(let item of lessons) { %>
+                          <tr>
+                            <td>
+                                <div class="d-flex px-2 py-1">
+                                <div class="poster" onclick="showBoxVideo('<%= item.id %>', '<%= item.video_url %>')">
+                                    <img
+                                    src="/assets/poster/<%= item.poster %>"
+                                    class="avatar me-3 border-radius-lg"
+                                    alt=""
+                                    />
+                                </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-xs font-weight-bold mb-0">
+                                  <%= item.mapId.map_name %>
+                                </p>
+                                <p class="text-xs text-secondary mb-0"><%= item.position %></p>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                                <span class="badge badge-sm bg-gradient-<%= item.isShow ? "success" : "danger" %>">
+                                  <%= item.isShow ? "Hiện thị" : "Ẩn" %>
+                                  </span>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                                <span class="text-secondary text-xs font-weight-bold">
+                                  <%= 
+                                    moment
+                                      .utc(item.video_duration * 1000)
+                                      .format("mm:ss") 
+                                  %>
+                                </span>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                                <span class="text-secondary text-xs font-weight-bold">
+                                  <%= item.tickrateId.value %> ticks 
+                                </span>
+                            </td>
+                            <td class="align-middle text-center">
+                                <span class="text-secondary text-xs font-weight-bold"><%= item.create_timeStamp %></span>
+                            </td>
+                            <td class="align-middle">
+                                <a
+                                    href="javascript:;"
+                                    class="text-secondary font-weight-bold"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit user"
+                                    title="Chi tiết bài học"
+                                >
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a
+                                    href="update-lesson.html?id=${item.id}"
+                                    class="text-secondary font-weight-bold"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit user"
+                                    title="Sửa bài học"
+                                >
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a
+                                    href="javascript:;"
+                                    class="text-secondary font-weight-bold"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit user"
+                                    title="Xóa bài học"
+                                    id="removeLesson"
+                                    onclick="removeLesson('<%= item._id %>', this)"
+                                >
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
                   </table>
                 </div>
               </div>
@@ -738,7 +810,7 @@
     <div class="video_fixed">
       <div class='player-container'>
         <div class='player'>
-          <video id='video' src='/assets/video/mirage/stair1.mp4' playsinline></video>
+          <video id='video' src='/assets/video/mirage/stair1_64.mp4' playsinline></video>
           <div class='play-btn-big'></div>
           <div class='controls'>
             <div class="time"><span class="time-current"></span><span class="time-total"></span></div>
@@ -785,6 +857,8 @@
         </div>
       </div>
     </div>
+    
+    <script src="/assets/js/table-lesson.js"></script>
     <%- include("../script") %>
 </body>
 </html>

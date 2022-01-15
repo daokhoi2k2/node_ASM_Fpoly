@@ -10,8 +10,11 @@ app.use(express.static('public'))
 mongoose.connect(process.env.MONGO_URL);
 
 const adminRoute = require("./routes/admin.route");
+const apiRoute = require("./routes/api.route");
 
 app.use('/admin', adminRoute);
+
+app.use('/api', apiRoute);
 
 app.get("/", (req, res) => {
   res.render("main");
