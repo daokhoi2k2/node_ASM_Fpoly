@@ -1,17 +1,9 @@
-const mongoose = require("mongoose");
+const lesson = require("../schema/lessons.schema");
 
-const lessonSchema = new mongoose.Schema({
-  video_url: String,
-  video_duration,
-  Number,
-  tickrateId: Number,
-  position: String,
-  poster: String,
-  isShow: Boolean,
-  mapId: Number,
-});
-
-const Lesson = mongoose.model("Lessons", lessonSchema, 'lessons');
-
-console.log(Lesson.find({}));
-module.exports = Lesson;
+module.exports = {
+  getAllLesson: () => {
+    lesson.find().then((data) => {
+      console.log(data)
+    })
+  }
+}
